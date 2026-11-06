@@ -15,6 +15,7 @@ public class BookingRepository : IBookingRepository
             new DateOnly(2026, 11, 3),
             Guid.NewGuid(),
             null,
+            null,
             8000m
         )
     ];
