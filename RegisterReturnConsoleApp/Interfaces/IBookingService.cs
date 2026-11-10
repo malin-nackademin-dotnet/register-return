@@ -7,5 +7,5 @@ public interface IBookingService
 {
     Booking GetBooking(Guid bookingId);
     ReturnValidationResult CanRegisterReturn(Status bookingStatus);
-    bool RegisterReturn(Booking booking, Guid employeeId);
+    bool RegisterReturn(Booking booking);
 }

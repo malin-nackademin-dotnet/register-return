@@ -6,19 +6,25 @@ namespace RegisterReturnConsoleApp.Repositories;
 
 public class BookingRepository : IBookingRepository
 {
-    private readonly List<Booking> _bookings =
-    [
-        new Booking(
-            Guid.NewGuid(),
-            Guid.NewGuid(),
-            new DateOnly(2026, 11, 3),
-            new DateOnly(2026, 11, 3),
-            Guid.NewGuid(),
-            null,
-            null,
-            8000m
-        )
-    ];
+    public Guid BookingId { get; } = Guid.NewGuid();
+    private readonly List<Booking> _bookings;
+    public BookingRepository()
+    {
+        _bookings =
+        [
+            new Booking(
+                BookingId,
+                Guid.NewGuid(),
+                Guid.NewGuid(),
+                new DateOnly(2026, 11, 3),
+                new DateOnly(2026, 11, 3),
+                Guid.NewGuid(),
+                null,
+                null,
+                8000m
+            )
+        ];
+    }
     public Booking? GetById(Guid bookingId)
     {
         var booking = _bookings.FirstOrDefault(booking => booking.Id == bookingId);
@@ -28,12 +34,12 @@ public class BookingRepository : IBookingRepository
 
     public bool Update(Booking booking)
     {
-        ArgumentNullException.ThrowIfNull(booking);
+        bool databaseError = true; //Ändra till false för att simulera databasfel
+
+        if (databaseError)
+            return false;
 
         int index = _bookings.FindIndex(b => b.Id == booking.Id);
-
-        if (index == -1)
-            throw new KeyNotFoundException($"Booking with id {booking.Id} was not found.");
 
         _bookings[index] = booking;
 

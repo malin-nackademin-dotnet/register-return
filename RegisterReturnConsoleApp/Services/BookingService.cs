@@ -6,17 +6,17 @@ namespace RegisterReturnConsoleApp.Services;
 
 public class BookingService(IBookingRepository repository) : IBookingService
 {
+    public Guid EmployeeId { get; } = Guid.NewGuid();
     public Booking GetBooking(Guid bookingId)
     {
         var booking = repository.GetById(bookingId);
 
         if (booking is null)
-            throw new ArgumentException($"No booking with id '{booking}' was found.");
+            throw new ArgumentException($"No booking with id '{bookingId}' was found.");
 
         return booking;
     }
 
-    //ta med i klassdiagram
     public ReturnValidationResult CanRegisterReturn(Status bookingStatus)
     {
         return bookingStatus switch
@@ -28,14 +28,14 @@ public class BookingService(IBookingRepository repository) : IBookingService
         };
     }
 
-    //ta med i klassdiagram
-    public bool RegisterReturn(Booking booking, Guid employeeId) //var först bara (Booking booking), kan inte bara ta emot booking, måste ta emot ett id från ui lagret och inte skapa det här
+    //ta med i sekvensdiagram
+    public bool RegisterReturn(Booking booking)
     {
         if (booking.Status != Status.CheckedOut)
-            throw new InvalidOperationException("The booking is not checked out and cannot be returned.");
+            throw new InvalidOperationException("Bokningen är inte utlämnad och kan inte returners.");
 
         booking.SetStatus(Status.Returned);
-        booking.SetReturnedByEmployeeId(employeeId);
+        booking.SetReturnedByEmployeeId(EmployeeId);
         booking.SetReturndAt(DateOnly.FromDateTime(DateTime.Now));
 
         bool result = repository.Update(booking);
