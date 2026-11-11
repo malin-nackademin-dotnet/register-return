@@ -34,7 +34,7 @@ public class BookingRepository : IBookingRepository
 
     public bool Update(Booking booking)
     {
-        bool databaseError = true; //Ändra till false för att simulera databasfel
+        bool databaseError = false; //Ändra till true för att simulera databasfel
 
         if (databaseError)
             return false;

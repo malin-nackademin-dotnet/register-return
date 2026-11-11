@@ -17,17 +17,6 @@ public class BookingService(IBookingRepository repository) : IBookingService
         return booking;
     }
 
-    public ReturnValidationResult CanRegisterReturn(Status bookingStatus)
-    {
-        return bookingStatus switch
-        {
-            Status.Booked or Status.Canceled => ReturnValidationResult.NotCheckedOut,
-            Status.Returned => ReturnValidationResult.AlreadyReturned,
-            Status.CheckedOut => ReturnValidationResult.CanReturn,
-            _ => throw new ArgumentOutOfRangeException(nameof(bookingStatus)),
-        };
-    }
-
     //ta med i sekvensdiagram
     public bool RegisterReturn(Booking booking)
     {

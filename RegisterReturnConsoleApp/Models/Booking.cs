@@ -4,7 +4,7 @@ namespace RegisterReturnConsoleApp.Models;
 public class Booking(Guid id, Guid equipmentItemId, Guid customerId, DateOnly startDate, DateOnly endDate, Guid? checkedOutByEmployeeId, Guid? returnedByEmployeeId, DateOnly? returnedAt, decimal price)
 {
     public Guid Id { get; private set; } = id;
-    public Guid EquipmentItemId { get; private set; } = equipmentItemId;
+    public Guid EquipmentId { get; private set; } = equipmentItemId;
     public Guid CustomerId { get; private set; } = customerId;
     public DateOnly StartDate { get; private set; } = startDate;
     public DateOnly EndDate { get; private set; } = endDate;
