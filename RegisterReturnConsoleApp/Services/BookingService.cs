@@ -17,11 +17,13 @@ public class BookingService(IBookingRepository repository) : IBookingService
         return booking;
     }
 
-    //ta med i sekvensdiagram
     public bool RegisterReturn(Booking booking)
     {
+        //Används för att simulera om en bokning blivit returnerad innan man valt bekräfta
+        //booking.SetStatus(Status.Returned);
+
         if (booking.Status != Status.CheckedOut)
-            throw new InvalidOperationException("Bokningen är inte utlämnad och kan inte returners.");
+            throw new InvalidOperationException("Bokningen har redan returnerats.");
 
         booking.SetStatus(Status.Returned);
         booking.SetReturnedByEmployeeId(EmployeeId);

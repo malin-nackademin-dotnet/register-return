@@ -15,7 +15,6 @@ while (Console.ReadKey(true).Key != ConsoleKey.Enter)
 
 DateOnly todaysDate = DateOnly.FromDateTime(DateTime.Now);
 
-//lägg till i sekvensdiagram
 switch (booking.Status)
 {
     case Status.Returned:
@@ -43,20 +42,26 @@ switch (booking.Status)
         }
         while (key != ConsoleKey.Y && key != ConsoleKey.N);
 
-        //Lägg till i sekvensdiagram; alt för om man inte bekräftar
         if (key == ConsoleKey.Y)
         {
-            bool isRegistered = bookingService.RegisterReturn(booking);
-
-            if (isRegistered)
+            try
             {
-                Console.WriteLine();
-                Console.WriteLine($"Utrustning {booking.EquipmentId} har registrerats som återlämnad och bokning {booking.Id} har avslutas.");
+                bool isRegistered = bookingService.RegisterReturn(booking);
+
+                if (isRegistered)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($"Utrustning {booking.EquipmentId} har registrerats som återlämnad och bokning {booking.Id} har avslutas.");
+                }
+                else
+                {     
+                    Console.WriteLine();
+                    Console.WriteLine("Bokningen kunde inte uppdateras i databasen.");
+                }
             }
-            else
-            {     
-                Console.WriteLine();
-                Console.WriteLine("Bokningen kunde inte uppdateras i databasen.");
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{ex.Message}");
             }
         }
 

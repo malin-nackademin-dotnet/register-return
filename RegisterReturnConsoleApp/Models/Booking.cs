@@ -14,7 +14,6 @@ public class Booking(Guid id, Guid equipmentItemId, Guid customerId, DateOnly st
     public Status Status { get; private set; } = Status.CheckedOut;
     public decimal TotalPrice { get; private set; } = price;
 
-    //behövs tas med i sekvensdiagram?
     public void SetStatus(Status status)
     {
         Status = status;
