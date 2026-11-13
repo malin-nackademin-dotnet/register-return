@@ -52,6 +52,12 @@ switch (booking.Status)
                 {
                     Console.WriteLine();
                     Console.WriteLine($"Utrustning {booking.EquipmentId} har registrerats som återlämnad och bokning {booking.Id} har avslutas.");
+                    Console.WriteLine();
+
+                    Console.WriteLine("--- Testutskrift av de egenskaper som uppdaterades ---");
+                    Console.WriteLine($"Status: {booking.Status}");
+                    Console.WriteLine($"Returned by: {booking.ReturnedByEmployeeId}");
+                    Console.WriteLine($"Return date: {booking.ReturnedAt}");
                 }
                 else
                 {     
